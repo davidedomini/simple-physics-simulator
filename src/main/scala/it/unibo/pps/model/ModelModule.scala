@@ -3,7 +3,7 @@ package it.unibo.pps.model
 object ModelModule:
 
   trait Model
-
+    
   trait Provider:
     val model: Model
 
