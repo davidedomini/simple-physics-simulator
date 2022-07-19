@@ -2,7 +2,7 @@ package it.unibo.pps.engine
 
 import it.unibo.pps.view.ViewModule
 import it.unibo.pps.model.{ModelModule, Snapshot}
-import it.unibo.pps.model.body.Body.*
+import it.unibo.pps.model.body.Body
 import monix.eval.{Task, TaskApp}
 import monix.execution.Scheduler
 
@@ -39,10 +39,10 @@ object EngineModule:
         yield ()
 
       private def getLastSnapshot(): Task[Snapshot] = context.model.getLastSnapshot()
-      private def computeNewPosition(b: Body): Task[Tuple2[Double, Double]] = dummyNewPosition(b)
+      private def computeNewPosition(b: Body): Task[Tuple2[Double, Double]] = Body.dummyNewPosition(b.position)
       private def waitFor(d: FiniteDuration): Task[Unit] = Task.sleep(d)
-      private def createNewSnapshot(newPos): Task[Snapshot] = Snapshot(Body((0,0), newPos))
-      private def addSnapshot(newSnapshot): Task[Unit] = context.model.addSnapshot(newSnapshot)
+      private def createNewSnapshot(newPos: Tuple2[Double, Double]): Task[Snapshot] = Snapshot(Body(newPos, (0,0)))
+      private def addSnapshot(newSnapshot: Snapshot): Task[Unit] = context.model.addSnapshot(newSnapshot)
 
   trait Interface extends Provider with Component:
     self: Requirements =>
