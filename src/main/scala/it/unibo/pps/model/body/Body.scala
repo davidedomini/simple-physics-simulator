@@ -11,3 +11,5 @@ object Body:
   def computeNewPosition(velocity: Tuple2[Double, Double], oldPosition: Tuple2[Double, Double], dt: Double) =
     oldPosition ++ (velocity x dt)
 
+  def dummyNewPosition(oldPosition: Tuple2[Double, Double]) = (oldPosition._1 + 2, oldPosition._2)
+
