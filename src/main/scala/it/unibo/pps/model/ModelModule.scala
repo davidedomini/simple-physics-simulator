@@ -15,7 +15,7 @@ object ModelModule:
   trait Component:
     class ModelImpl extends Model:
       private var history: List[Snapshot] = List.empty
-      override def init(): Unit = history :+ Snapshot(Body((10,10), (1,1)))
+      override def init(): Unit = history = history :+ Snapshot(Body((100,100), (1,1)))
       override def addSnapshot(snapshot: Snapshot): Unit = history = history :+ snapshot
       override def getLastSnapshot(): Snapshot = history.last
 

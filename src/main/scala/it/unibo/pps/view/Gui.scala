@@ -32,7 +32,7 @@ class Gui(width: Int, height: Int, controller: ControllerModule.Controller):
 
   private class Environment() extends JPanel:
 
-    var elementPos = (0.0, 0.0)
+    var elementPos = (100.0, 100.0)
 
     override def getPreferredSize = new Dimension(self.width, self.height)
     override def paintComponent(graphics: Graphics): Unit =
