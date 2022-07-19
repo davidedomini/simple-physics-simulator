@@ -37,4 +37,4 @@ class Gui(width: Int, height: Int, controller: ControllerModule.Controller):
     override def getPreferredSize = new Dimension(self.width, self.height)
     override def paintComponent(graphics: Graphics): Unit =
       graphics.setColor(Color.BLACK)
-      graphics.drawOval(elementPos._1, elementPos._2, 10, 10)
+      graphics.drawOval(elementPos._1.toInt, elementPos._2.toInt, 10, 10)
