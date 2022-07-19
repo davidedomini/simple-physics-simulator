@@ -11,8 +11,8 @@ object ModelModule:
 
   trait Component:
     class ModelImpl extends Model:
-      private var history: Seq[Snapshot] = Seq.empty
-      override def addSnapshot(snapshot: Snapshot): Unit = history = history :: snapshot
+      private var history: List[Snapshot] = List.empty
+      override def addSnapshot(snapshot: Snapshot): Unit = history = history :+ snapshot
       override def getLastSnapshot(): Snapshot = history.last
 
   trait Interface extends Provider with Component
