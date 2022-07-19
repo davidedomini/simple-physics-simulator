@@ -6,4 +6,7 @@ object RichTuple2:
     def ++(v2: Tuple2[Double, Double]): Tuple2[Double, Double] = (v._1 + v2._1, v._2 + v2._2)
     def module: Double = Math.sqrt(v._1 * v._1 + v._2 * v._2)
     def normalize: Tuple2[Double, Double] = (v._1/v.module, v._2/v.module)
-
+    def euclideanDistance(v2: Tuple2[Double, Double]): Double =
+      val x = v._1 - v2._1
+      val y = v._2 - v2._2
+      Math.sqrt(x*x + y*y)
