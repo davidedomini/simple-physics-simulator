@@ -1,4 +1,4 @@
-package it.unibo.pps.Controller
+package it.unibo.pps.controller
 
 object ControllerModule:
 
