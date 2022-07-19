@@ -13,6 +13,8 @@ object EngineModule:
   type Requirements = ViewModule.Provider with ModelModule.Provider
 
   trait Component:
+    context: Requirements =>
     class SimulationEngineImpl extends SimulationEngine
 
-  trait Interface extends Provider with Component
+  trait Interface extends Provider with Component:
+    self: Requirements =>
