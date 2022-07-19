@@ -1,9 +1,11 @@
 package it.unibo.pps.engine
 
 import it.unibo.pps.view.ViewModule
-import it.unibo.pps.model.ModelModule
+import it.unibo.pps.model.{ModelModule, Snapshot}
+import it.unibo.pps.model.body.Body.*
 import monix.eval.{Task, TaskApp}
 import monix.execution.Scheduler
+
 import concurrent.duration.{Duration, DurationInt, FiniteDuration}
 import scala.language.postfixOps
 import scala.language.implicitConversions
@@ -21,7 +23,26 @@ object EngineModule:
   trait Component:
     context: Requirements =>
     class SimulationEngineImpl extends SimulationEngine:
-      override def simulationStep(): Task[Unit] = ???
+      given unitToTask: Conversion[Unit, Task[Unit]] = Task(_)
+      given intToTask: Conversion[Int, Task[Int]] = Task(_)
+      given tuple2ToTask: Conversion[Tuple2[Double, Double], Task[Tuple2[Double, Double]]] = Task(_)
+      given snapToTask: Conversion[Snapshot, Task[Snapshot]] = Task(_)
+
+      override def simulationStep(): Task[Unit] =
+        for
+          _ <- waitFor(1 seconds)
+          ls <- getLastSnapshot()
+          newPos <- computeNewPosition(ls.body)
+          newSnap <- createNewSnapshot(newPos)
+          _ <- addSnapshot(newSnap)
+          _ <- context.view.render(newSnap)
+        yield ()
+
+      private def getLastSnapshot(): Task[Snapshot] = context.model.getLastSnapshot()
+      private def computeNewPosition(b: Body): Task[Tuple2[Double, Double]] = dummyNewPosition(b)
+      private def waitFor(d: FiniteDuration): Task[Unit] = Task.sleep(d)
+      private def createNewSnapshot(newPos): Task[Snapshot] = Snapshot(Body((0,0), newPos))
+      private def addSnapshot(newSnapshot): Task[Unit] = context.model.addSnapshot(newSnapshot)
 
   trait Interface extends Provider with Component:
     self: Requirements =>
