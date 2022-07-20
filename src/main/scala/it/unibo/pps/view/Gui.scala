@@ -4,7 +4,7 @@ import javax.swing.{JButton, JFrame, JLabel, JPanel, SwingUtilities}
 import java.awt.{BorderLayout, Canvas, Color, Dimension, Graphics}
 import java.awt.event.{ActionEvent, ActionListener}
 import it.unibo.pps.controller.ControllerModule
-import it.unibo.pps.model.body.Body
+import it.unibo.pps.model.body.{Body, Body2}
 
 class Gui(width: Int, height: Int, controller: ControllerModule.Controller):
   self =>
@@ -24,7 +24,7 @@ class Gui(width: Int, height: Int, controller: ControllerModule.Controller):
   canvas.setVisible(true)
   frame.setVisible(true)
 
-  def render(b: Body): Unit = SwingUtilities.invokeLater{ () =>
+  def render(b: Body2): Unit = SwingUtilities.invokeLater{ () =>
     canvas.elementPos = b.position
     canvas.invalidate()
     canvas.repaint()

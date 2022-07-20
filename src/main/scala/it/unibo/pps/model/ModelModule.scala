@@ -1,6 +1,6 @@
 package it.unibo.pps.model
 
-import it.unibo.pps.model.body.Body
+import it.unibo.pps.model.body.Body2
 
 object ModelModule:
 
@@ -15,7 +15,7 @@ object ModelModule:
   trait Component:
     class ModelImpl extends Model:
       private var history: List[Snapshot] = List.empty
-      override def init(): Unit = history = history :+ Snapshot(Body((100,100), (1,1)))
+      override def init(): Unit = history = history :+ Snapshot(Body2((100,100), 0), 0)
       override def addSnapshot(snapshot: Snapshot): Unit = history = history :+ snapshot
       override def getLastSnapshot(): Snapshot = history.last
 
