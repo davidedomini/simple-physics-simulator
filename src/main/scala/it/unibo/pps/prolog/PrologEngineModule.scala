@@ -21,7 +21,8 @@ object PrologEngineModule:
 
   trait Component:
     class PrologEngineImpl extends PrologEngine:
-      private val engine = Scala2P.createEngine("UAMCalc.pl")
+      private val engine =
+        Scala2P.createEngine("/UAMCalc.pl")
 
       def calcNewPosition(
           x: Double,
